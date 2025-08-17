@@ -1,0 +1,293 @@
+<!-- Wallet Connection -->
+<section id="wallet-section">
+    <button id="connect-wallet"><i class="fas fa-wallet"></i> Conectar Wallet (Coinbase/Bitget)</button>
+    <p id="wallet-address"></p>
+</section>
+
+<!-- OpenSea Connection -->
+<section id="opensea-section">
+    <a id="connect-opensea" href="https://opensea.io/collection/tribu-lunar-nfts" target="_blank"><i class="fas fa-link"></i> Conectar a OpenSea (NFTs Tribu Lunar)</a> <!-- Reemplaza con tu colección OpenSea -->
+    <p>Explora y mintea NFTs de la Tribu Lunar en OpenSea.</p>
+</section>
+
+<section id="gallery" class="meme-gallery">
+    <div class="meme-item">
+        <img src="placeholder.png" alt="Meme 1" data-caption="Descripción del Meme 1">
+        <p>Título del Meme 1</p>
+        <a href="https://example.com" target="_blank">Enlace relacionado</a>
+        <button class="vote-btn" onclick="vote(1)">Votar <i class="fas fa-thumbs-up"></i></button>
+        <span class="vote-count" id="vote1">0 votos</span>
+    </div>
+    <div class="meme-item">
+        <video controls>
+            <source src="placeholder-video.mp4" type="video/mp4">
+        </video>
+        <p>Título del Video 1</p>
+        <a href="https://example.com" target="_blank">Enlace relacionado</a>
+        <button class="vote-btn" onclick="vote(2)">Votar <i class="fas fa-thumbs-up"></i></button>
+        <span class="vote-count" id="vote2">0 votos</span>
+    </div>
+    <!-- Upload Form -->
+    <div id="upload-form">
+        <h3>Sube tu Meme, Video o Enlace</h3>
+        <input type="file" id="media-file" accept="image/,video/">
+        <input type="text" id="media-title" placeholder="Título">
+        <input type="text" id="media-desc" placeholder="Descripción">
+        <input type="url" id="media-link" placeholder="Enlace relacionado (opcional)">
+        <button onclick="uploadMedia()">Subir</button>
+    </div>
+</section>
+
+<section id="about" class="info-section">
+    <h2>¿Qué es $LUNSY?</h2>
+    <p>LunatiSynergy es la memecoin de la Tribu Lunar en Solana. Invierte $70 por ~14M $LUNSY, stakea con multi-sig, y co-crea. Filosofía: Orgánico 100%, anti-estafa. Enlace al contrato: [tu-enlace].</p>
+</section>
+
+<section id="community" class="community-section">
+    <h2>Comunidad</h2>
+    <p>¡Únete a la conversación y forma parte de la Tribu Lunar!</p>
+    <a href="https://x.com/TribuLunarOficial" target="_blank"><i class="fab fa-twitter"></i> X</a>
+    <a href="https://t.me/TribuLunar" target="_blank"><i class="fab fa-telegram"></i> Telegram</a>
+</section>
+
+<footer>
+    <p>&copy; 2025 La Tribu Lunar</p>
+    <p>Aviso: No somos asesores financieros. Invertir conlleva riesgos. Política de privacidad: [enlace].</p>
+</footer>
+
+<div id="myModal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="imgModal">
+    <div id="caption"></div>
+</div>
+
+<script>
+    // Modal
+    const modal = document.getElementById("myModal");
+    const modalImg = document.getElementById("imgModal");
+    const captionText = document.getElementById("caption");
+    const closeBtn = document.querySelector(".close");
+
+    document.querySelectorAll(".meme-item img").forEach(img => {
+        img.onclick = function() {
+            modal.style.display = "block";
+            modalImg.src = this.src;
+            captionText.innerHTML = this.dataset.caption;
+        }
+    });
+
+    closeBtn.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    // Wallet
+    const connectWalletBtn = document.getElementById("connect-wallet");
+    const walletAddress = document.getElementById("wallet-address");
+
+    connectWalletBtn.onclick = async () => {
+        if (window.solana) {
+            try {
+                const resp = await window.solana.connect();
+                walletAddress.innerText = 'Wallet conectada: ' + resp.publicKey.toString();
+                connectWalletBtn.textContent = 'Desconectar Wallet';
+                connectWalletBtn.onclick = () => window.solana.disconnect().then(() => {
+                    walletAddress.innerText = '';
+                    connectWalletBtn.textContent = 'Conectar Wallet';
+                });
+            } catch (err) {
+                alert("Error al conectar wallet: " + err.message);
+            }
+        } else {
+            alert("Instala una wallet Solana como Phantom, Coinbase o Bitget Wallet.");
+        }
+    };
+
+    // Upload
+    function uploadMedia() {
+        const file = document.getElementById("media-file").files[0];
+        const title = document.getElementById("media-title").value;
+        const desc = document.getElementById("media-desc").value;
+        const link = document.getElementById("media-link").value;
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const newItem = document.createElement("div");
+                newItem.className = "meme-item";
+                const mediaType = file.type.startsWith('video') ? <video controls><source src="${e.target.result}" type="${file.type}"></video> : <img src="${e.target.result}" alt="${title}" data-caption="${desc}">;
+                newItem.innerHTML = ${mediaType}<p>${title}</p><a href="${link}" target="_blank">${link ? 'Enlace' : ''}</a><button class="vote-btn" onclick="vote(${document.querySelectorAll(".meme-item").length + 1})">Votar <i class="fas fa-thumbs-up"></i></button><span class="vote-count" id="vote${document.querySelectorAll(".meme-item").length + 1}">0 votos</span>;
+                document.querySelector(".meme-gallery").appendChild(newItem);
+                alert("Media subido!");
+            };
+            reader.readAsDataURL(file);
+        } else {
+            alert("Selecciona un archivo");
+        }
+    }
+
+    // Votación
+    function vote(id) {
+        let count = localStorage.getItem('vote' + id) || 0;
+        count = parseInt(count) + 1;
+        localStorage.setItem('vote' + id, count);
+        document.getElementById("vote" + id).innerText = count + " votos";
+    }
+
+    // Cargar votos
+    document.querySelectorAll(".vote-count").forEach((elem, id) => {
+        let count = localStorage.getItem('vote' + (id + 1)) || 0;
+        elem.innerText = count + " votos";
+    });
+</script>
+
+<!-- Wallet Connection -->
+<section id="wallet-section">
+    <button id="connect-wallet"><i class="fas fa-wallet"></i> Conectar Wallet (Coinbase/Bitget)</button>
+    <p id="wallet-address"></p>
+</section>
+
+<!-- OpenSea Connection -->
+<section id="opensea-section">
+    <a id="connect-opensea" href="https://opensea.io/collection/tribu-lunar-nfts" target="_blank"><i class="fas fa-link"></i> Conectar a OpenSea (NFTs Tribu Lunar)</a> <!-- Reemplaza con tu colección OpenSea -->
+    <p>Explora y mintea NFTs de la Tribu Lunar en OpenSea.</p>
+</section>
+
+<section id="gallery" class="meme-gallery">
+    <div class="meme-item">
+        <img src="placeholder.png" alt="Meme 1" data-caption="Descripción del Meme 1">
+        <p>Título del Meme 1</p>
+        <a href="https://example.com" target="_blank">Enlace relacionado</a>
+        <button class="vote-btn" onclick="vote(1)">Votar <i class="fas fa-thumbs-up"></i></button>
+        <span class="vote-count" id="vote1">0 votos</span>
+    </div>
+    <div class="meme-item">
+        <video controls>
+            <source src="placeholder-video.mp4" type="video/mp4">
+        </video>
+        <p>Título del Video 1</p>
+        <a href="https://example.com" target="_blank">Enlace relacionado</a>
+        <button class="vote-btn" onclick="vote(2)">Votar <i class="fas fa-thumbs-up"></i></button>
+        <span class="vote-count" id="vote2">0 votos</span>
+    </div>
+    <!-- Upload Form -->
+    <div id="upload-form">
+        <h3>Sube tu Meme, Video o Enlace</h3>
+        <input type="file" id="media-file" accept="image/,video/">
+        <input type="text" id="media-title" placeholder="Título">
+        <input type="text" id="media-desc" placeholder="Descripción">
+        <input type="url" id="media-link" placeholder="Enlace relacionado (opcional)">
+        <button onclick="uploadMedia()">Subir</button>
+    </div>
+</section>
+
+<section id="about" class="info-section">
+    <h2>¿Qué es $LUNSY?</h2>
+    <p>LunatiSynergy es la memecoin de la Tribu Lunar en Solana. Invierte $70 por ~14M $LUNSY, stakea con multi-sig, y co-crea. Filosofía: Orgánico 100%, anti-estafa. Enlace al contrato: [tu-enlace].</p>
+</section>
+
+<section id="community" class="community-section">
+    <h2>Comunidad</h2>
+    <p>¡Únete a la conversación y forma parte de la Tribu Lunar!</p>
+    <a href="https://x.com/TribuLunarOficial" target="_blank"><i class="fab fa-twitter"></i> X</a>
+    <a href="https://t.me/TribuLunar" target="_blank"><i class="fab fa-telegram"></i> Telegram</a>
+</section>
+
+<footer>
+    <p>&copy; 2025 La Tribu Lunar</p>
+    <p>Aviso: No somos asesores financieros. Invertir conlleva riesgos. Política de privacidad: [enlace].</p>
+</footer>
+
+<div id="myModal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="imgModal">
+    <div id="caption"></div>
+</div>
+
+<script>
+    // Modal
+    const modal = document.getElementById("myModal");
+    const modalImg = document.getElementById("imgModal");
+    const captionText = document.getElementById("caption");
+    const closeBtn = document.querySelector(".close");
+
+    document.querySelectorAll(".meme-item img").forEach(img => {
+        img.onclick = function() {
+            modal.style.display = "block";
+            modalImg.src = this.src;
+            captionText.innerHTML = this.dataset.caption;
+        }
+    });
+
+    closeBtn.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    // Wallet
+    const connectWalletBtn = document.getElementById("connect-wallet");
+    const walletAddress = document.getElementById("wallet-address");
+
+    connectWalletBtn.onclick = async () => {
+        if (window.solana) {
+            try {
+                const resp = await window.solana.connect();
+                walletAddress.innerText = 'Wallet conectada: ' + resp.publicKey.toString();
+                connectWalletBtn.textContent = 'Desconectar Wallet';
+                connectWalletBtn.onclick = () => window.solana.disconnect().then(() => {
+                    walletAddress.innerText = '';
+                    connectWalletBtn.textContent = 'Conectar Wallet';
+                });
+            } catch (err) {
+                alert("Error al conectar wallet: " + err.message);
+            }
+        } else {
+            alert("Instala una wallet Solana como Phantom, Coinbase o Bitget Wallet.");
+        }
+    };
+
+    // Upload
+    function uploadMedia() {
+        const file = document.getElementById("media-file").files[0];
+        const title = document.getElementById("media-title").value;
+        const desc = document.getElementById("media-desc").value;
+        const link = document.getElementById("media-link").value;
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const newItem = document.createElement("div");
+                newItem.className = "meme-item";
+                const mediaType = file.type.startsWith('video') ? <video controls><source src="${e.target.result}" type="${file.type}"></video> : <img src="${e.target.result}" alt="${title}" data-caption="${desc}">;
+                newItem.innerHTML = ${mediaType}<p>${title}</p><a href="${link}" target="_blank">${link ? 'Enlace' : ''}</a><button class="vote-btn" onclick="vote(${document.querySelectorAll(".meme-item").length + 1})">Votar <i class="fas fa-thumbs-up"></i></button><span class="vote-count" id="vote${document.querySelectorAll(".meme-item").length + 1}">0 votos</span>;
+                document.querySelector(".meme-gallery").appendChild(newItem);
+                alert("Media subido!");
+            };
+            reader.readAsDataURL(file);
+        } else {
+            alert("Selecciona un archivo");
+        }
+    }
+
+    // Votación
+    function vote(id) {
+        let count = localStorage.getItem('vote' + id) || 0;
+        count = parseInt(count) + 1;
+        localStorage.setItem('vote' + id, count);
+        document.getElementById("vote" + id).innerText = count + " votos";
+    }
+
+    // Cargar votos
+    document.querySelectorAll(".vote-count").forEach((elem, id) => {
+        let count = localStorage.getItem('vote' + (id + 1)) || 0;
+        elem.innerText = count + " votos";
+    });
+</script>
