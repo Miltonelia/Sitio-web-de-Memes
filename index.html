@@ -1,300 +1,288 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="El Memeoráculo Lunar: Galería profesional de memes, videos y enlaces de la Tribu Lunar para LunatiSynergy ($LUNSY). Co-crea, vota, conecta tu wallet y explora NFTs en OpenSea.">
-    <title>El Memeoráculo Lunar - Tribu Lunar</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet"> <!-- Fuente moderna -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> <!-- Iconos -->
-    <script src="https://cdn.jsdelivr.net/npm/@solana/web3.js@latest/lib/index.iife.min.js"></script> <!-- Solana para wallets -->
-    <style>
-        body {
-            font-family: 'Montserrat', sans-serif;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(to bottom, #000000, #9945FF); /* Negro a púrpura Solana */
-            color: #FFFFFF; /* Blanco */
-            line-height: 1.6;
-        }
-        header {
-            text-align: center;
-            padding: 50px 20px;
-            background: linear-gradient(to right, #9945FF, #00FFFF); /* Púrpura a azul neon */
-            position: relative;
-            box-shadow: 0 0 20px #14F195; /* Glow verde neon */
-        }
-        header img {
-            width: 180px;
-            border-radius: 50%;
-            border: 3px solid #14F195; /* Verde neon border */
-            box-shadow: 0 0 15px #00FFFF; /* Glow azul neon */
-        }
-        nav ul {
-            list-style: none;
-            padding: 0;
-            text-align: center;
-            background-color: rgba(0, 0, 0, 0.7);
-            margin: 0;
-            padding: 15px 0;
-            box-shadow: 0 2px 10px #9945FF; /* Glow púrpura */
-        }
-        nav ul li {
-            display: inline;
-            margin: 0 25px;
-        }
-        nav a {
-            color: #00FFFF; /* Azul neon */
-            text-decoration: none;
-            font-weight: bold;
-            transition: color 0.3s, text-shadow 0.3s;
-        }
-        nav a:hover {
-            color: #14F195; /* Verde neon hover */
-            text-shadow: 0 0 10px #14F195; /* Glow neon */
-        }
-        .meme-gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            padding: 40px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        .meme-item {
-            border: 2px solid #00FFFF; /* Azul neon border */
-            padding: 20px;
-            background-color: rgba(34, 34, 34, 0.8);
-            border-radius: 15px;
-            text-align: center;
-            transition: transform 0.4s, box-shadow 0.4s;
-            box-shadow: 0 4px 12px rgba(153, 69, 255, 0.3); /* Sombra púrpura */
-        }
-        .meme-item:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 25px #14F195; /* Glow verde neon */
-        }
-        .meme-item img, .meme-item video {
-            max-width: 100%;
-            height: auto;
-            cursor: pointer;
-            border-radius: 10px;
-            box-shadow: 0 0 10px #9945FF; /* Glow púrpura */
-        }
-        .meme-item a {
-            color: #00FFFF;
-            display: block;
-            margin-top: 10px;
-            transition: color 0.3s;
-        }
-        .meme-item a:hover {
-            color: #14F195;
-        }
-        .meme-item p {
-            margin-top: 10px;
-            font-size: 1.1em;
-            color: #ccc;
-        }
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.95);
-            padding-top: 60px;
-        }
-        .modal-content {
-            margin: auto;
-            display: block;
-            width: 80%;
-            max-width: 800px;
-            animation: zoom 0.6s;
-        }
-        @keyframes zoom {
-            from {transform: scale(0);}
-            to {transform: scale(1);}
-        }
-        #caption {
-            margin: auto;
-            display: block;
-            width: 80%;
-            text-align: center;
-            color: #ccc;
-            padding: 10px 0;
-        }
-        .close {
-            position: absolute;
-            top: 15px;
-            right: 35px;
-            color: #FFFFFF;
-            font-size: 40px;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-        .close:hover {
-            color: #14F195;
-        }
-        .info-section, .community-section {
-            margin: 40px auto;
-            padding: 30px;
-            background-color: rgba(34, 34, 34, 0.8);
-            border-radius: 15px;
-            max-width: 1200px;
-            box-shadow: 0 4px 12px rgba(153, 69, 255, 0.3);
-            transition: box-shadow 0.3s;
-        }
-        .info-section:hover, .community-section:hover {
-            box-shadow: 0 0 25px #00FFFF;
-        }
-        .community-section a {
-            color: #00FFFF; /* Azul neon */
-            margin-right: 15px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: color 0.3s;
-        }
-        .community-section a:hover {
-            color: #14F195; /* Verde neon */
-        }
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            padding: 20px;
-            background: linear-gradient(to bottom, #A855F7, #1E3A8A);
-            font-size: 0.9em;
-            color: #777;
-        }
-        /* Wallet Connection */
-        #wallet-section {
-            text-align: center;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: rgba(51, 51, 51, 0.8);
-            border-radius: 10px;
-            max-width: 400px;
-            box-shadow: 0 0 15px #9945FF;
-        }
-        #connect-wallet {
-            background-color: #9945FF;
-            color: #FFFFFF;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background-color 0.3s, box-shadow 0.3s;
-        }
-        #connect-wallet:hover {
-            background-color: #00FFFF;
-            box-shadow: 0 0 15px #00FFFF;
-        }
-        #wallet-address {
-            margin-top: 10px;
-            font-size: 0.9em;
-            color: #ccc;
-        }
-        /* Upload Form */
-        #upload-form {
-            margin-top: 30px;
-            padding: 20px;
-            background-color: rgba(51, 51, 51, 0.8);
-            border-radius: 10px;
-            box-shadow: 0 0 15px #14F195;
-        }
-        #upload-form input, #upload-form button {
-            display: block;
-            margin: 15px 0;
-            width: 100%;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #00FFFF; /* Azul neon border */
-        }
-        #upload-form button {
-            background-color: #14F195; /* Verde neon */
-            color: #000000;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s, box-shadow 0.3s;
-        }
-        #upload-form button:hover {
-            background-color: #9945FF;
-            box-shadow: 0 0 15px #9945FF;
-        }
-        /* Votación */
-        .vote-btn {
-            background-color: #9945FF;
-            color: #FFFFFF;
-            border: none;
-            padding: 8px 16px;
-            cursor: pointer;
-            margin-top: 10px;
-            border-radius: 5px;
-            transition: background-color 0.3s, box-shadow 0.3s;
-        }
-        .vote-btn:hover {
-            background-color: #00FFFF;
-            box-shadow: 0 0 15px #00FFFF;
-        }
-        .vote-count {
-            font-size: 0.8em;
-            color: #14F195; /* Verde neon */
-            margin-top: 5px;
-        }
-        /* Staking Section */
-        #staking-section {
-            text-align: center;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: rgba(51, 51, 51, 0.8);
-            border-radius: 10px;
-            max-width: 400px;
-            box-shadow: 0 0 15px #00FFFF;
-        }
-        #staking-section a {
-            background-color: #14F195;
-            color: #000000;
-            padding: 10px 20px;
-            text-decoration: none;
-            font-weight: bold;
-            border-radius: 5px;
-            transition: background-color 0.3s, box-shadow 0.3s;
-        }
-        #staking-section a:hover {
-            background-color: #9945FF;
-            box-shadow: 0 0 15px #9945FF;
-        }
-        /* OpenSea */
-        #opensea-section {
-            text-align: center;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: rgba(51, 51, 51, 0.8);
-            border-radius: 10px;
-            max-width: 400px;
-            box-shadow: 0 0 15px #A855F7;
-        }
-        #connect-opensea {
-            background-color: #00FFFF;
-            color: #000000;
-            padding: 10px 20px;
-            text-decoration: none;
-            font-weight: bold;
-            border-radius: 5px;
-            transition: background-color 0.3s, box-shadow 0.3s;
-        }
-        #connect-opensea:hover {
-            background-color: #14F195;
-            box-shadow: 0 0 15px #14F195;
-        }
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom, #000000, #9945FF); /* Negro a púrpura Solana */
+    color: #FFFFFF; /* Blanco */
+    line-height: 1.6;
+}
+header {
+    text-align: center;
+    padding: 50px 20px;
+    background: linear-gradient(to right, #9945FF, #00FFFF); /* Púrpura a azul neon */
+    position: relative;
+    box-shadow: 0 0 20px #14F195; /* Glow verde neon */
+}
+header img {
+    width: 180px;
+    border-radius: 50%;
+    border: 3px solid #14F195; /* Verde neon border */
+    box-shadow: 0 0 15px #00FFFF; /* Glow azul neon */
+}
+nav ul {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    margin: 0;
+    padding: 15px 0;
+    box-shadow: 0 2px 10px #9945FF; /* Glow púrpura */
+}
+nav ul li {
+    display: inline;
+    margin: 0 25px;
+}
+nav a {
+    color: #00FFFF; /* Azul neon */
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s, text-shadow 0.3s;
+}
+nav a:hover {
+    color: #14F195; /* Verde neon hover */
+    text-shadow: 0 0 10px #14F195; /* Glow neon */
+}
+.meme-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+.meme-item {
+    border: 2px solid #00FFFF; /* Azul neon border */
+    padding: 20px;
+    background-color: rgba(34, 34, 34, 0.8);
+    border-radius: 15px;
+    text-align: center;
+    transition: transform 0.4s, box-shadow 0.4s;
+    box-shadow: 0 4px 12px rgba(153, 69, 255, 0.3); /* Sombra púrpura */
+}
+.meme-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px #14F195; /* Glow verde neon */
+}
+.meme-item img, .meme-item video {
+    max-width: 100%;
+    height: auto;
+    cursor: pointer;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #9945FF; /* Glow púrpura */
+}
+.meme-item a {
+    color: #00FFFF;
+    display: block;
+    margin-top: 10px;
+    transition: color 0.3s;
+}
+.meme-item a:hover {
+    color: #14F195;
+}
+.meme-item p {
+    margin-top: 10px;
+    font-size: 1.1em;
+    color: #ccc;
+}
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.95);
+    padding-top: 60px;
+}
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 800px;
+    animation: zoom 0.6s;
+}
+@keyframes zoom {
+    from {transform: scale(0);}
+    to {transform: scale(1);}
+}
+#caption {
+    margin: auto;
+    display: block;
+    width: 80%;
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0;
+}
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #FFFFFF;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+.close:hover {
+    color: #14F195;
+}
+.info-section, .community-section {
+    margin: 40px auto;
+    padding: 30px;
+    background-color: rgba(34, 34, 34, 0.8);
+    border-radius: 15px;
+    max-width: 1200px;
+    box-shadow: 0 4px 12px rgba(153, 69, 255, 0.3);
+    transition: box-shadow 0.3s;
+}
+.info-section:hover, .community-section:hover {
+    box-shadow: 0 0 25px #00FFFF;
+}
+.community-section a {
+    color: #00FFFF; /* Azul neon */
+    margin-right: 15px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+.community-section a:hover {
+    color: #14F195; /* Verde neon */
+}
+footer {
+    text-align: center;
+    margin-top: 40px;
+    padding: 20px;
+    background: linear-gradient(to bottom, #A855F7, #1E3A8A);
+    font-size: 0.9em;
+    color: #777;
+}
+/* Wallet Connection */
+#wallet-section {
+    text-align: center;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: rgba(51, 51, 51, 0.8);
+    border-radius: 10px;
+    max-width: 400px;
+    box-shadow: 0 0 15px #9945FF;
+}
+#connect-wallet {
+    background-color: #9945FF;
+    color: #FFFFFF;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+#connect-wallet:hover {
+    background-color: #00FFFF;
+    box-shadow: 0 0 15px #00FFFF;
+}
+#wallet-address {
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: #ccc;
+}
+/* Upload Form */
+#upload-form {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: rgba(51, 51, 51, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 0 15px #14F195;
+}
+#upload-form input, #upload-form button {
+    display: block;
+    margin: 15px 0;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #00FFFF; /* Azul neon border */
+}
+#upload-form button {
+    background-color: #14F195; /* Verde neon */
+    color: #000000;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+#upload-form button:hover {
+    background-color: #9945FF;
+    box-shadow: 0 0 15px #9945FF;
+}
+/* Votación */
+.vote-btn {
+    background-color: #9945FF;
+    color: #FFFFFF;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    margin-top: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+.vote-btn:hover {
+    background-color: #00FFFF;
+    box-shadow: 0 0 15px #00FFFF;
+}
+.vote-count {
+    font-size: 0.8em;
+    color: #14F195; /* Verde neon */
+    margin-top: 5px;
+}
+/* Staking Section */
+#staking-section {
+    text-align: center;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: rgba(51, 51, 51, 0.8);
+    border-radius: 10px;
+    max-width: 400px;
+    box-shadow: 0 0 15px #00FFFF;
+}
+#staking-section a {
+    background-color: #14F195;
+    color: #000000;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+#staking-section a:hover {
+    background-color: #9945FF;
+    box-shadow: 0 0 15px #9945FF;
+}
+/* OpenSea */
+#opensea-section {
+    text-align: center;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: rgba(51, 51, 51, 0.8);
+    border-radius: 10px;
+    max-width: 400px;
+    box-shadow: 0 0 15px #A855F7;
+}
+#connect-opensea {
+    background-color: #00FFFF;
+    color: #000000;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+#connect-opensea:hover {
+    background-color: #14F195;
+    box-shadow: 0 0 15px #14F195;
+}
     </style>
 </head>
 <body>
     <header>
-        <img src="placeholder-logo.png" alt="Logo LunatiSynergy" /> <!-- Reemplaza con tu logo -->
-        <h1>El Memeoráculo Lunar</h1>
+        <img src="placeholder-logo.png" alt="Logo LunatiSynergy" /> <h1>El Memeoráculo Lunar</h1>
         <p>Co-crea memes, videos y enlaces con la Tribu Lunar</p>
     </header>
     <nav>
@@ -305,22 +293,17 @@
         </ul>
     </nav>
 
-    <!-- Wallet Connection -->
     <section id="wallet-section">
         <button id="connect-wallet"><i class="fas fa-wallet"></i> Conectar Wallet (Coinbase/Bitget)</button>
         <p id="wallet-address"></p>
     </section>
 
-    <!-- Staking Section (separado) -->
     <section id="staking-section">
-        <a href="https://staking.lunatisynergy.com" target="_blank">Stake Now <i class="fas fa-rocket"></i></a> <!-- Link a dApp externa -->
-        <p>Stakea tu $LUNSY de forma segura con multi-sig.</p>
+        <a href="https://staking.lunatisynergy.com" target="_blank">Stake Now <i class="fas fa-rocket"></i></a> <p>Stakea tu $LUNSY de forma segura con multi-sig.</p>
     </section>
 
-    <!-- OpenSea -->
     <section id="opensea-section">
-        <a id="connect-opensea" href="https://opensea.io/collection/tribu-lunar-nfts" target="_blank"><i class="fas fa-link"></i> Conectar a OpenSea (NFTs Tribu Lunar)</a> <!-- Reemplaza con tu colección -->
-        <p>Explora y mintea NFTs de la Tribu Lunar en OpenSea.</p>
+        <a id="connect-opensea" href="https://opensea.io/collection/tribu-lunar-nfts" target="_blank"><i class="fas fa-link"></i> Conectar a OpenSea (NFTs Tribu Lunar)</a> <p>Explora y mintea NFTs de la Tribu Lunar en OpenSea.</p>
     </section>
 
     <section id="gallery" class="meme-gallery">
@@ -340,7 +323,6 @@
             <button class="vote-btn" onclick="vote(2)">Votar <i class="fas fa-thumbs-up"></i></button>
             <span class="vote-count" id="vote2">0 votos</span>
         </div>
-        <!-- Upload Form -->
         <div id="upload-form">
             <h3>Sube tu Meme, Video o Enlace</h3>
             <input type="file" id="media-file" accept="image/,video/">
