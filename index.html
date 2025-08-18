@@ -1,288 +1,392 @@
-body {
-    font-family: 'Montserrat', sans-serif;
-    margin: 0;
-    padding: 0;
-    background: linear-gradient(to bottom, #000000, #9945FF); /* Negro a púrpura Solana */
-    color: #FFFFFF; /* Blanco */
-    line-height: 1.6;
-}
-header {
-    text-align: center;
-    padding: 50px 20px;
-    background: linear-gradient(to right, #9945FF, #00FFFF); /* Púrpura a azul neon */
-    position: relative;
-    box-shadow: 0 0 20px #14F195; /* Glow verde neon */
-}
-header img {
-    width: 180px;
-    border-radius: 50%;
-    border: 3px solid #14F195; /* Verde neon border */
-    box-shadow: 0 0 15px #00FFFF; /* Glow azul neon */
-}
-nav ul {
-    list-style: none;
-    padding: 0;
-    text-align: center;
-    background-color: rgba(0, 0, 0, 0.7);
-    margin: 0;
-    padding: 15px 0;
-    box-shadow: 0 2px 10px #9945FF; /* Glow púrpura */
-}
-nav ul li {
-    display: inline;
-    margin: 0 25px;
-}
-nav a {
-    color: #00FFFF; /* Azul neon */
-    text-decoration: none;
-    font-weight: bold;
-    transition: color 0.3s, text-shadow 0.3s;
-}
-nav a:hover {
-    color: #14F195; /* Verde neon hover */
-    text-shadow: 0 0 10px #14F195; /* Glow neon */
-}
-.meme-gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    padding: 40px;
-    max-width: 1400px;
-    margin: 0 auto;
-}
-.meme-item {
-    border: 2px solid #00FFFF; /* Azul neon border */
-    padding: 20px;
-    background-color: rgba(34, 34, 34, 0.8);
-    border-radius: 15px;
-    text-align: center;
-    transition: transform 0.4s, box-shadow 0.4s;
-    box-shadow: 0 4px 12px rgba(153, 69, 255, 0.3); /* Sombra púrpura */
-}
-.meme-item:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 25px #14F195; /* Glow verde neon */
-}
-.meme-item img, .meme-item video {
-    max-width: 100%;
-    height: auto;
-    cursor: pointer;
-    border-radius: 10px;
-    box-shadow: 0 0 10px #9945FF; /* Glow púrpura */
-}
-.meme-item a {
-    color: #00FFFF;
-    display: block;
-    margin-top: 10px;
-    transition: color 0.3s;
-}
-.meme-item a:hover {
-    color: #14F195;
-}
-.meme-item p {
-    margin-top: 10px;
-    font-size: 1.1em;
-    color: #ccc;
-}
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.95);
-    padding-top: 60px;
-}
-.modal-content {
-    margin: auto;
-    display: block;
-    width: 80%;
-    max-width: 800px;
-    animation: zoom 0.6s;
-}
-@keyframes zoom {
-    from {transform: scale(0);}
-    to {transform: scale(1);}
-}
-#caption {
-    margin: auto;
-    display: block;
-    width: 80%;
-    text-align: center;
-    color: #ccc;
-    padding: 10px 0;
-}
-.close {
-    position: absolute;
-    top: 15px;
-    right: 35px;
-    color: #FFFFFF;
-    font-size: 40px;
-    font-weight: bold;
-    transition: 0.3s;
-}
-.close:hover {
-    color: #14F195;
-}
-.info-section, .community-section {
-    margin: 40px auto;
-    padding: 30px;
-    background-color: rgba(34, 34, 34, 0.8);
-    border-radius: 15px;
-    max-width: 1200px;
-    box-shadow: 0 4px 12px rgba(153, 69, 255, 0.3);
-    transition: box-shadow 0.3s;
-}
-.info-section:hover, .community-section:hover {
-    box-shadow: 0 0 25px #00FFFF;
-}
-.community-section a {
-    color: #00FFFF; /* Azul neon */
-    margin-right: 15px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: color 0.3s;
-}
-.community-section a:hover {
-    color: #14F195; /* Verde neon */
-}
-footer {
-    text-align: center;
-    margin-top: 40px;
-    padding: 20px;
-    background: linear-gradient(to bottom, #A855F7, #1E3A8A);
-    font-size: 0.9em;
-    color: #777;
-}
-/* Wallet Connection */
-#wallet-section {
-    text-align: center;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: rgba(51, 51, 51, 0.8);
-    border-radius: 10px;
-    max-width: 400px;
-    box-shadow: 0 0 15px #9945FF;
-}
-#connect-wallet {
-    background-color: #9945FF;
-    color: #FFFFFF;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.3s, box-shadow 0.3s;
-}
-#connect-wallet:hover {
-    background-color: #00FFFF;
-    box-shadow: 0 0 15px #00FFFF;
-}
-#wallet-address {
-    margin-top: 10px;
-    font-size: 0.9em;
-    color: #ccc;
-}
-/* Upload Form */
-#upload-form {
-    margin-top: 30px;
-    padding: 20px;
-    background-color: rgba(51, 51, 51, 0.8);
-    border-radius: 10px;
-    box-shadow: 0 0 15px #14F195;
-}
-#upload-form input, #upload-form button {
-    display: block;
-    margin: 15px 0;
-    width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #00FFFF; /* Azul neon border */
-}
-#upload-form button {
-    background-color: #14F195; /* Verde neon */
-    color: #000000;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s, box-shadow 0.3s;
-}
-#upload-form button:hover {
-    background-color: #9945FF;
-    box-shadow: 0 0 15px #9945FF;
-}
-/* Votación */
-.vote-btn {
-    background-color: #9945FF;
-    color: #FFFFFF;
-    border: none;
-    padding: 8px 16px;
-    cursor: pointer;
-    margin-top: 10px;
-    border-radius: 5px;
-    transition: background-color 0.3s, box-shadow 0.3s;
-}
-.vote-btn:hover {
-    background-color: #00FFFF;
-    box-shadow: 0 0 15px #00FFFF;
-}
-.vote-count {
-    font-size: 0.8em;
-    color: #14F195; /* Verde neon */
-    margin-top: 5px;
-}
-/* Staking Section */
-#staking-section {
-    text-align: center;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: rgba(51, 51, 51, 0.8);
-    border-radius: 10px;
-    max-width: 400px;
-    box-shadow: 0 0 15px #00FFFF;
-}
-#staking-section a {
-    background-color: #14F195;
-    color: #000000;
-    padding: 10px 20px;
-    text-decoration: none;
-    font-weight: bold;
-    border-radius: 5px;
-    transition: background-color 0.3s, box-shadow 0.3s;
-}
-#staking-section a:hover {
-    background-color: #9945FF;
-    box-shadow: 0 0 15px #9945FF;
-}
-/* OpenSea */
-#opensea-section {
-    text-align: center;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: rgba(51, 51, 51, 0.8);
-    border-radius: 10px;
-    max-width: 400px;
-    box-shadow: 0 0 15px #A855F7;
-}
-#connect-opensea {
-    background-color: #00FFFF;
-    color: #000000;
-    padding: 10px 20px;
-    text-decoration: none;
-    font-weight: bold;
-    border-radius: 5px;
-    transition: background-color 0.3s, box-shadow 0.3s;
-}
-#connect-opensea:hover {
-    background-color: #14F195;
-    box-shadow: 0 0 15px #14F195;
-}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="#LunatiMemeChallenge: Galería profesional de memes, videos y enlaces de la Tribu Lunar para LunatiSynergy ($LUNSY). Co-crea, vota, conecta tu wallet y explora NFTs en OpenSea.">
+    <title>#LunatiMemeChallenge - Tribu Lunar</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@400&display=swap" rel="stylesheet"> <!-- Fuentes clásicas -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> <!-- Iconos -->
+    <script src="https://cdn.jsdelivr.net/npm/@solana/web3.js@latest/lib/index.iife.min.js"></script> <!-- Solana para wallets -->
+    <!-- Firebase for real uploads/votes -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #0A0A2A, #1A1A4A); /* Fondo clásico cósmico */
+            color: #E0E0E0; /* Gris claro */
+            line-spacing: 1.8;
+            font-size: 16px;
+            transition: background-color 0.5s, color 0.5s; /* For dark/light mode */
+        }
+        body.light-mode {
+            background: linear-gradient(to bottom, #F0F0F5, #E0E0E5);
+            color: #333333;
+        }
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(to bottom, #1A1A4A, #2A2A6A); /* Gradiente sutil */
+            position: relative;
+            border-bottom: 2px solid #D4AF37; /* Gold border */
+        }
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3em;
+            color: #D4AF37; /* Oro */
+            margin: 20px 0;
+            letter-spacing: 1px;
+        }
+        header p {
+            font-style: italic;
+            color: #B0B0B0;
+            font-size: 1.2em;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            text-align: center;
+            background-color: rgba(30, 58, 138, 0.8); /* Azul clásico */
+            margin: 0;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 25px;
+        }
+        nav a {
+            color: #D4AF37; /* Oro */
+            text-decoration: none;
+            font-weight: bold;
+            font-family: 'Playfair Display', serif;
+            transition: color 0.3s, text-shadow 0.3s;
+        }
+        nav a:hover {
+            color: #FFFFFF;
+            text-shadow: 0 0 10px #D4AF37; /* Glow oro */
+        }
+        .meme-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .meme-item {
+            border: 2px solid #D4AF37; /* Gold border */
+            padding: 20px;
+            background-color: rgba(34, 34, 34, 0.9);
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+        }
+        .meme-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.5); /* Glow oro */
+        }
+        .meme-item img, .meme-item video {
+            max-width: 100%;
+            height: auto;
+            cursor: pointer;
+            border-radius: 10px;
+            border: 1px solid #A855F7; /* Morado marco */
+            box-shadow: 0 0 10px rgba(168, 85, 247, 0.3);
+        }
+        .meme-item a {
+            color: #A855F7;
+            display: block;
+            margin-top: 10px;
+            transition: color 0.3s;
+        }
+        .meme-item a:hover {
+            color: #D4AF37;
+        }
+        .meme-item p {
+            margin-top: 10px;
+            font-size: 1.1em;
+            color: #C0C0C0;
+            font-style: italic;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.95);
+            padding-top: 60px;
+            animation: fadeIn 0.5s;
+        }
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 800px;
+            animation: zoom 0.6s;
+        }
+        @keyframes zoom {
+            from {transform: scale(0);}
+            to {transform: scale(1);}
+        }
+        #caption {
+            margin: auto;
+            display: block;
+            width: 80%;
+            text-align: center;
+            color: #ccc;
+            padding: 10px 0;
+        }
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #E0E0E0;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .close:hover {
+            color: #D4AF37;
+        }
+        .info-section, .community-section {
+            margin: 40px auto;
+            padding: 30px;
+            background-color: rgba(34, 34, 34, 0.9);
+            border-radius: 15px;
+            max-width: 1200px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            transition: box-shadow 0.4s;
+        }
+        .info-section:hover, .community-section:hover {
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.5); /* Glow oro */
+        }
+        .community-section a {
+            color: #D4AF37; /* Oro */
+            margin-right: 15px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        .community-section a:hover {
+            color: #FFFFFF;
+            text-shadow: 0 0 10px #D4AF37; /* Glow oro */
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #1E3A8A;
+            font-size: 0.9em;
+            color: #B0B0B0;
+            border-top: 2px solid #D4AF37; /* Gold border */
+        }
+        /* Wallet Connection */
+        #wallet-section {
+            text-align: center;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(51, 51, 51, 0.9);
+            border-radius: 15px;
+            max-width: 400px;
+            box-shadow: 0 5px 15px rgba(168, 85, 247, 0.3); /* Morado sutil */
+        }
+        #connect-wallet {
+            background-color: #A855F7;
+            color: #E0E0E0;
+            border: none;
+            padding: 12px 24px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            border-radius: 8px;
+        }
+        #connect-wallet:hover {
+            background-color: #D4AF37;
+            box-shadow: 0 0 15px #D4AF37; /* Glow oro */
+        }
+        #wallet-address {
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #C0C0C0;
+        }
+        /* Upload Form */
+        #upload-form {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: rgba(51, 51, 51, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3); /* Oro sutil */
+        }
+        #upload-form input, #upload-form button {
+            display: block;
+            margin: 15px 0;
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #D4AF37; /* Gold border */
+            background-color: #2A2A2A;
+            color: #E0E0E0;
+        }
+        #upload-form button {
+            background-color: #D4AF37;
+            color: #1E3A8A;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+        #upload-form button:hover {
+            background-color: #A855F7;
+            box-shadow: 0 0 15px #A855F7; /* Glow morado */
+        }
+        /* Votación */
+        .vote-btn {
+            background-color: #A855F7;
+            color: #E0E0E0;
+            border: none;
+            padding: 8px 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            border-radius: 8px;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+        .vote-btn:hover {
+            background-color: #D4AF37;
+            box-shadow: 0 0 15px #D4AF37; /* Glow oro */
+        }
+        .vote-count {
+            font-size: 0.8em;
+            color: #D4AF37; /* Oro */
+            margin-top: 5px;
+        }
+        /* Staking Section (separado) */
+        #staking-section {
+            text-align: center;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(51, 51, 51, 0.9);
+            border-radius: 15px;
+            max-width: 400px;
+            box-shadow: 0 5px 15px rgba(168, 85, 247, 0.3); /* Morado sutil */
+        }
+        #staking-section a {
+            background-color: #D4AF37;
+            color: #1E3A8A;
+            padding: 12px 24px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 8px;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+        #staking-section a:hover {
+            background-color: #A855F7;
+            box-shadow: 0 0 15px #A855F7;
+        }
+        /* OpenSea */
+        #opensea-section {
+            text-align: center;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(51, 51, 51, 0.9);
+            border-radius: 15px;
+            max-width: 400px;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3); /* Oro sutil */
+        }
+        #connect-opensea {
+            background-color: #A855F7;
+            color: #E0E0E0;
+            padding: 12px 24px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 8px;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+        #connect-opensea:hover {
+            background-color: #D4AF37;
+            box-shadow: 0 0 15px #D4AF37;
+        }
+        /* Leaderboard */
+        #leaderboard {
+            margin: 30px auto;
+            padding: 20px;
+            background-color: rgba(51, 51, 51, 0.9);
+            border-radius: 15px;
+            max-width: 600px;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
+        #leaderboard h3 {
+            text-align: center;
+            color: #D4AF37;
+        }
+        #leaderboard-list {
+            list-style: none;
+            padding: 0;
+        }
+        #leaderboard-list li {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #2A2A2A;
+            border-radius: 8px;
+            text-align: center;
+        }
+        /* Dark/Light Mode Toggle */
+        #mode-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+            font-size: 1.5em;
+            color: #D4AF37;
+        }
+        body.light-mode {
+            background: linear-gradient(to bottom, #F0F0F5, #E0E0E5);
+            color: #333333;
+        }
+        body.light-mode header {
+            background: linear-gradient(to bottom, #FFFFFF, #F0F0F5);
+        }
+        body.light-mode .meme-item {
+            background-color: #FFFFFF;
+        }
+        body.light-mode .info-section, body.light-mode .community-section {
+            background-color: #F0F0F5;
+        }
+        body.light-mode footer {
+            background-color: #E0E0E5;
+        }
+        /* Media Queries for Responsivity */
+        @media (max-width: 768px) {
+            .meme-gallery {
+                grid-template-columns: 1fr;
+            }
+            header h1 {
+                font-size: 2.5em;
+            }
+            nav ul li {
+                margin: 0 10px;
+            }
+        }
     </style>
 </head>
 <body>
+    <div id="mode-toggle" onclick="toggleMode()"><i class="fas fa-moon"></i></div> <!-- Toggle icon -->
+
     <header>
-        <img src="placeholder-logo.png" alt="Logo LunatiSynergy" /> <h1>El Memeoráculo Lunar</h1>
+        <img src="placeholder-logo.png" alt="Logo LunatiSynergy" /> <!-- Reemplaza con tu logo -->
+        <h1>#LunatiMemeChallenge</h1>
         <p>Co-crea memes, videos y enlaces con la Tribu Lunar</p>
     </header>
     <nav>
@@ -293,17 +397,22 @@ footer {
         </ul>
     </nav>
 
+    <!-- Wallet Connection -->
     <section id="wallet-section">
         <button id="connect-wallet"><i class="fas fa-wallet"></i> Conectar Wallet (Coinbase/Bitget)</button>
         <p id="wallet-address"></p>
     </section>
 
+    <!-- Staking Section (separado) -->
     <section id="staking-section">
-        <a href="https://staking.lunatisynergy.com" target="_blank">Stake Now <i class="fas fa-rocket"></i></a> <p>Stakea tu $LUNSY de forma segura con multi-sig.</p>
+        <a href="https://staking.lunatisynergy.com" target="_blank">Stake Now <i class="fas fa-rocket"></i></a> <!-- Link a dApp externa -->
+        <p>Stakea tu $LUNSY de forma segura con multi-sig.</p>
     </section>
 
+    <!-- OpenSea -->
     <section id="opensea-section">
-        <a id="connect-opensea" href="https://opensea.io/collection/tribu-lunar-nfts" target="_blank"><i class="fas fa-link"></i> Conectar a OpenSea (NFTs Tribu Lunar)</a> <p>Explora y mintea NFTs de la Tribu Lunar en OpenSea.</p>
+        <a id="connect-opensea" href="https://opensea.io/collection/tribu-lunar-nfts" target="_blank"><i class="fas fa-link"></i> Conectar a OpenSea (NFTs Tribu Lunar)</a> <!-- Reemplaza con tu colección -->
+        <p>Explora y mintea NFTs de la Tribu Lunar en OpenSea.</p>
     </section>
 
     <section id="gallery" class="meme-gallery">
@@ -323,6 +432,7 @@ footer {
             <button class="vote-btn" onclick="vote(2)">Votar <i class="fas fa-thumbs-up"></i></button>
             <span class="vote-count" id="vote2">0 votos</span>
         </div>
+        <!-- Upload Form -->
         <div id="upload-form">
             <h3>Sube tu Meme, Video o Enlace</h3>
             <input type="file" id="media-file" accept="image/,video/">
@@ -330,6 +440,11 @@ footer {
             <input type="text" id="media-desc" placeholder="Descripción">
             <input type="url" id="media-link" placeholder="Enlace relacionado (opcional)">
             <button onclick="uploadMedia()">Subir</button>
+        </div>
+        <!-- Leaderboard -->
+        <div id="leaderboard">
+            <h3>Leaderboard de Votos</h3>
+            <ul id="leaderboard-list"></ul>
         </div>
     </section>
 
@@ -357,6 +472,19 @@ footer {
     </div>
 
     <script>
+        // Firebase Config (reemplaza con tu config)
+        const firebaseConfig = {
+            apiKey: "AIzaSyXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            authDomain: "your-project.firebaseapp.com",
+            projectId: "your-project",
+            storageBucket: "your-project.appspot.com",
+            messagingSenderId: "XXXXXXXXXXXX",
+            appId: "1:XXXXXXXXXXXX:web:XXXXXXXXXXXXXXXX"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const storage = firebase.storage();
+        const db = firebase.firestore();
+
         // Modal
         const modal = document.getElementById("myModal");
         const modalImg = document.getElementById("imgModal");
@@ -403,41 +531,74 @@ footer {
             }
         };
 
-        // Upload
+        // Upload con Firebase Storage
         function uploadMedia() {
             const file = document.getElementById("media-file").files[0];
             const title = document.getElementById("media-title").value;
             const desc = document.getElementById("media-desc").value;
             const link = document.getElementById("media-link").value;
             if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const newItem = document.createElement("div");
-                    newItem.className = "meme-item";
-                    const mediaType = file.type.startsWith('video') ? <video controls><source src="${e.target.result}" type="${file.type}"></video> : <img src="${e.target.result}" alt="${title}" data-caption="${desc}">;
-                    newItem.innerHTML = ${mediaType}<p>${title}</p><a href="${link}" target="_blank">${link ? 'Enlace' : ''}</a><button class="vote-btn" onclick="vote(${document.querySelectorAll(".meme-item").length + 1})">Votar <i class="fas fa-thumbs-up"></i></button><span class="vote-count" id="vote${document.querySelectorAll(".meme-item").length + 1}">0 votos</span>;
-                    document.querySelector(".meme-gallery").appendChild(newItem);
-                    alert("Media subido!");
-                };
-                reader.readAsDataURL(file);
+                const storageRef = storage.ref('media/' + file.name);
+                storageRef.put(file).then(() => {
+                    storageRef.getDownloadURL().then(url => {
+                        db.collection('media').add({
+                            title: title,
+                            desc: desc,
+                            link: link,
+                            url: url,
+                            type: file.type.startsWith('video') ? 'video' : 'image',
+                            votes: 0
+                        }).then(() => {
+                            alert("Media subido y guardado!");
+                            loadMedia(); // Recarga galería
+                        });
+                    });
+                }).catch(err => alert("Error al subir: " + err.message));
             } else {
                 alert("Selecciona un archivo");
             }
         }
 
-        // Votación
-        function vote(id) {
-            let count = localStorage.getItem('vote' + id) || 0;
-            count = parseInt(count) + 1;
-            localStorage.setItem('vote' + id, count);
-            document.getElementById("vote" + id).innerText = count + " votos";
+        // Cargar Media de Firebase
+        function loadMedia() {
+            const gallery = document.querySelector(".meme-gallery");
+            gallery.innerHTML = ''; // Limpia galería
+            db.collection('media').orderBy('votes', 'desc').get().then(snapshot => {
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    const newItem = document.createElement("div");
+                    newItem.className = "meme-item";
+                    const mediaType = data.type === 'video' ? <video controls><source src="${data.url}" type="video/mp4"></video> : <img src="${data.url}" alt="${data.title}" data-caption="${data.desc}">;
+                    newItem.innerHTML = ${mediaType}<p>${data.title}</p><a href="${data.link}" target="_blank">${data.link ? 'Enlace' : ''}</a><button class="vote-btn" onclick="vote('${doc.id}')">Votar <i class="fas fa-thumbs-up"></i></button><span class="vote-count" id="vote${doc.id}">${data.votes} votos</span>;
+                    gallery.appendChild(newItem);
+                });
+            });
         }
 
-        // Cargar votos
-        document.querySelectorAll(".vote-count").forEach((elem, index) => {
-            let count = localStorage.getItem('vote' + (index + 1)) || 0;
-            elem.innerText = count + " votos";
-        });
+        // Votación con Firebase
+        function vote(id) {
+            db.collection('media').doc(id).update({
+                votes: firebase.firestore.FieldValue.increment(1)
+            }).then(() => {
+                loadMedia(); // Recarga para actualizar counts
+            });
+        }
+
+        // Cargar al inicio
+        loadMedia();
+
+        // Dark/Light Mode Toggle
+        function toggleMode() {
+            document.body.classList.toggle('light-mode');
+            localStorage.setItem('mode', document.body.classList.contains('light-mode') ? 'light' : 'dark');
+            document.getElementById("mode-toggle").innerHTML = document.body.classList.contains('light-mode') ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        }
+
+        // Cargar mode
+        if (localStorage.getItem('mode') === 'light') {
+            document.body.classList.add('light-mode');
+            document.getElementById("mode-toggle").innerHTML = '<i class="fas fa-sun"></i>';
+        }
     </script>
 </body>
 </html>
