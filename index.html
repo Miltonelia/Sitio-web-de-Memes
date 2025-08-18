@@ -473,18 +473,17 @@
 
     <script>
         // Firebase Config (reemplaza con tu config)
-        const firebaseConfig = {
-            apiKey: "AIzaSyXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-            authDomain: "your-project.firebaseapp.com",
-            projectId: "your-project",
-            storageBucket: "your-project.appspot.com",
-            messagingSenderId: "XXXXXXXXXXXX",
-            appId: "1:XXXXXXXXXXXX:web:XXXXXXXXXXXXXXXX"
-        };
-        firebase.initializeApp(firebaseConfig);
-        const storage = firebase.storage();
-        const db = firebase.firestore();
+const firebaseConfig = {
+  apiKey: "AIzaSyCRTd8E3LbfBzVMJnrKo2ODic7LH7Ib3QA",
+  authDomain: "lunatisynergy-3ae5e.firebaseapp.com",
+  projectId: "lunatisynergy-3ae5e",
+  storageBucket: "lunatisynergy-3ae5e.firebasestorage.app",
+  messagingSenderId: "432528047009",
+  appId: "1:432528047009:web:0b94c71013e84b8545a9e0"
+};
 
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
         // Modal
         const modal = document.getElementById("myModal");
         const modalImg = document.getElementById("imgModal");
