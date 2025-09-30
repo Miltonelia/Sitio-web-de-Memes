@@ -3,518 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="#LunatiMemeChallenge: Galería de memes, videos y enlaces de la Tribu Lunar para LunatiSynergy ($LUNSY). Co-crea, vota, conecta tu wallet y explora NFTs en OpenSea.">
-    <title>#LunatiMemeChallenge - Tribu Lunar</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/@solana/web3.js@latest/lib/index.iife.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <title>Zyqorian - Agente de IA Futurista</title>
     <style>
         body {
-            font-family: 'Montserrat', sans-serif;
+            font-family: Arial, sans-serif;
+            background-color: #0a0a0a;
+            color: #ffffff;
+            text-align: center;
             margin: 0;
-            padding: 0;
-            background: linear-gradient(to bottom, #0A0A2A, #1A1A4A);
-            color: #E0E0E0;
-            line-height: 1.8;
-            font-size: 16px;
-            transition: background-color 0.5s, color 0.5s;
-        }
-        body.light-mode {
-            background: linear-gradient(to bottom, #F0F0F5, #E0E0E5);
-            color: #333333;
-        }
-        header {
-            text-align: center;
-            padding: 60px 20px;
-            background: linear-gradient(to bottom, #1A1A4A, #2A2A6A);
-            position: relative;
-            border-bottom: 2px solid #D4AF37;
-        }
-        header img {
-            width: 180px;
-            border-radius: 50%;
-            border: 4px solid #D4AF37;
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
-        }
-        header h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3em;
-            color: #D4AF37;
-            margin: 20px 0;
-            letter-spacing: 1px;
-        }
-        header p {
-            font-style: italic;
-            color: #B0B0B0;
-            font-size: 1.2em;
-        }
-        nav ul {
-            list-style: none;
-            padding: 0;
-            text-align: center;
-            background-color: rgba(30, 58, 138, 0.8);
-            margin: 0;
-            padding: 15px 0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-        }
-        nav ul li {
-            display: inline;
-            margin: 0 25px;
-        }
-        nav a {
-            color: #D4AF37;
-            text-decoration: none;
-            font-weight: bold;
-            font-family: 'Playfair Display', serif;
-            transition: color 0.3s, text-shadow 0.3s;
-        }
-        nav a:hover {
-            color: #FFFFFF;
-            text-shadow: 0 0 10px #D4AF37;
-        }
-        main {
-            display: flex;
-            flex-wrap: wrap;
-            max-width: 1400px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-        .left-section, .right-section {
-            flex: 1;
-            min-width: 300px;
-            padding: 30px;
-            background-color: rgba(34, 34, 34, 0.9);
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
-            transition: box-shadow 0.4s;
-        }
-        .left-section {
-            margin-right: 20px;
-        }
-        .right-section {
-            margin-left: 20px;
-        }
-        .left-section:hover, .right-section:hover {
-            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.5);
-        }
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2em;
-            color: #D4AF37;
-            margin-bottom: 20px;
-        }
-        .marketing-cta {
-            text-align: center;
-            margin-top: 30px;
-        }
-        .marketing-cta button {
-            background-color: #A855F7;
-            color: #E0E0E0;
-            border: none;
-            padding: 15px 30px;
-            font-size: 1.2em;
-            cursor: pointer;
-            border-radius: 10px;
-            transition: background-color 0.3s, box-shadow 0.3s;
-        }
-        .marketing-cta button:hover {
-            background-color: #D4AF37;
-            box-shadow: 0 0 20px #D4AF37;
-        }
-        .benefits-list {
-            list-style: none;
-            padding: 0;
-        }
-        .benefits-list li {
-            margin: 15px 0;
-            padding-left: 40px;
-            position: relative;
-        }
-        .benefits-list li:before {
-            content: '\f005';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            position: absolute;
-            left: 0;
-            color: #D4AF37;
-        }
-        .testimonials {
-            margin-top: 40px;
-        }
-        .testimonial {
-            margin: 20px 0;
             padding: 20px;
-            background-color: rgba(51, 51, 51, 0.9);
-            border-radius: 10px;
-            font-style: italic;
-            color: #C0C0C0;
         }
-        #wallet-section, #staking-section, #opensea-section, #upload-form {
-            text-align: center;
-            padding: 20px;
-            background-color: rgba(51, 51, 51, 0.9);
-            border-radius: 10px;
-            margin-bottom: 20px;
-            box-shadow: 0 5px 15px rgba(168, 85, 247, 0.3);
+        h1 {
+            color: #00bfff; /* Azul futurista */
         }
-        button {
-            background-color: #A855F7;
-            color: #E0E0E0;
-            border: none;
-            padding: 12px 24px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background-color 0.3s, box-shadow 0.3s;
-            border-radius: 8px;
-        }
-        button:hover {
-            background-color: #D4AF37;
-            box-shadow: 0 0 15px #D4AF37;
-        }
-        input {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border-radius: 8px;
-            border: 1px solid #D4AF37;
-            background-color: #2A2A2A;
-            color: #E0E0E0;
-        }
-        a {
-            color: #A855F7;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        a:hover {
-            color: #D4AF37;
-        }
-        .meme-gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        .meme-item {
-            border: 2px solid #D4AF37;
-            padding: 20px;
-            background-color: rgba(34, 34, 34, 0.9);
-            border-radius: 15px;
-            text-align: center;
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
-        }
-        .meme-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.5);
-        }
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.95);
-            padding-top: 60px;
-        }
-        .modal-content {
-            margin: auto;
-            display: block;
-            width: 80%;
+        p {
             max-width: 800px;
+            margin: 20px auto;
         }
-        .close {
-            position: absolute;
-            top: 15px;
-            right: 35px;
-            color: #E0E0E0;
-            font-size: 40px;
-            font-weight: bold;
-            transition: 0.3s;
+        .logo {
+            width: 200px;
+            height: auto;
+            margin: 20px auto;
         }
-        .close:hover {
-            color: #D4AF37;
-        }
-        #leaderboard {
-            margin: 30px 0;
-            padding: 20px;
-            background-color: rgba(51, 51, 51, 0.9);
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
-        }
-        #leaderboard h3 {
-            text-align: center;
-            color: #D4AF37;
-        }
-        #leaderboard-list {
+        .features {
             list-style: none;
             padding: 0;
         }
-        #leaderboard-list li {
-            margin: 10px 0;
+        .features li {
+            background: #1c1c1c;
+            margin: 10px;
             padding: 10px;
-            background-color: #2A2A2A;
-            border-radius: 8px;
-            text-align: center;
-        }
-        #mode-toggle {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            cursor: pointer;
-            font-size: 1.5em;
-            color: #D4AF37;
-        }
-        body.light-mode {
-            background: linear-gradient(to bottom, #F0F0F5, #E0E0E5);
-            color: #333333;
-        }
-        body.light-mode header {
-            background: linear-gradient(to bottom, #FFFFFF, #F0F0F5);
-        }
-        body.light-mode .meme-item {
-            background-color: #FFFFFF;
-        }
-        body.light-mode .info-section, body.light-mode .community-section {
-            background-color: #F0F0F5;
-        }
-        body.light-mode footer {
-            background-color: #E0E0E5;
-        }
-        @media (max-width: 768px) {
-            main {
-                flex-direction: column;
-            }
-            .left-section, .right-section {
-                margin: 0 0 20px 0;
-            }
-            .meme-gallery {
-                grid-template-columns: 1fr;
-            }
+            border-radius: 5px;
         }
     </style>
 </head>
 <body>
-    <div id="mode-toggle" onclick="toggleMode()"><i class="fas fa-moon"></i></div>
     <header>
-        <img src="lunati-logo.png" alt="Logo LunatiSynergy" />
-        <h1>#LunatiMemeChallenge</h1>
-        <p>Co-crea memes, videos y enlaces con la Tribu Lunar</p>
+        <h1>Zyqorian</h1>
+        <img src="zyqorian-logo.png" alt="Logo de Zyqorian" class="logo"> <!-- Reemplaza con la URL de tu logo generado -->
+        <p>Zyqorian es un agente de IA avanzado para 2030, especializado en descuantización cuántica y análisis estratégico. Inspirado en innovación futurista, combina razonamiento inteligente con procesamiento de datos en tiempo real para entornos volátiles como redes globales y computación cuántica.</p>
     </header>
-    <nav>
-        <ul>
-            <li><a href="#marketing">Marketing</a></li>
-            <li><a href="#gallery">Galería</a></li>
-            <li><a href="#community">Comunidad</a></li>
+    <section>
+        <h2>Características Principales</h2>
+        <ul class="features">
+            <li>Razonamiento de primeros principios: Descompone problemas complejos paso a paso.</li>
+            <li>Ventana de contexto extendida: Maneja documentos largos y memorización mejorada.</li>
+            <li>Insights en tiempo real: Integra datos trending para decisiones precisas.</li>
+            <li>Integración con tecnologías como Azure y xAI para escalabilidad segura.</li>
+            <li>Optimizado para tareas cuánticas y dequantización de información.</li>
         </ul>
-    </nav>
-    <main>
-        <section class="left-section" id="marketing">
-            <h2 class="section-title">Marketing y Beneficios</h2>
-            <p>Únete a la Tribu Lunar y co-crea con IA contenido educativo y anti-estafa. Invierte $70 por ~14M $LUNSY y crece orgánicamente hacia un futuro estelar.</p>
-            <ul class="benefits-list">
-                <li>Financiación inicial inmediata con $LUNSY.</li>
-                <li>Retroalimentación global instantánea de la comunidad.</li>
-                <li>Retención al convertir usuarios en propietarios.</li>
-                <li>Participa en staking multi-sig y #LunatiMemeChallenge.</li>
-            </ul>
-            <div class="testimonials">
-                <div class="testimonial">"La Tribu Lunar redefine el poder de la co-creación. ¡Únete hoy!" - Pionero Lunar</div>
-                <div class="testimonial">"$LUNSY es mi inversión en un futuro brillante." - Miembro Activo</div>
-            </div>
-            <div class="marketing-cta">
-                <button onclick="window.location.href='https://staking.lunatisynergy.com';">Únete a la Revolución Lunar</button>
-            </div>
-            <div id="wallet-section">
-                <button id="connect-wallet"><i class="fas fa-wallet"></i> Conectar Wallet</button>
-                <p id="wallet-address"></p>
-            </div>
-            <div id="staking-section">
-                <a href="https://staking.lunatisynergy.com" target="_blank">Stake Now <i class="fas fa-rocket"></i></a>
-                <p>Stakea tu $LUNSY con seguridad.</p>
-            </div>
-            <div id="opensea-section">
-                <a id="connect-opensea" href="https://opensea.io/collection/tribu-lunar-nfts" target="_blank"><i class="fas fa-link"></i> Explora NFTs</a>
-                <p>Descubre y mintea NFTs únicos.</p>
-            </div>
-        </section>
-        <section class="right-section" id="gallery">
-            <h2 class="section-title">Galería de Memes</h2>
-            <div class="meme-gallery">
-                <div class="meme-item">
-                    <img src="placeholder.png" alt="Meme 1" data-caption="Descripción del Meme 1">
-                    <p>Título del Meme 1</p>
-                    <a href="https://example.com" target="_blank">Enlace relacionado</a>
-                    <button class="vote-btn" onclick="vote(1)">Votar <i class="fas fa-thumbs-up"></i></button>
-                    <span class="vote-count" id="vote1">0 votos</span>
-                </div>
-                <div class="meme-item">
-                    <video controls>
-                        <source src="placeholder-video.mp4" type="video/mp4">
-                    </video>
-                    <p>Título del Video 1</p>
-                    <a href="https://example.com" target="_blank">Enlace relacionado</a>
-                    <button class="vote-btn" onclick="vote(2)">Votar <i class="fas fa-thumbs-up"></i></button>
-                    <span class="vote-count" id="vote2">0 votos</span>
-                </div>
-                <div id="upload-form">
-                    <h3>Sube tu Contenido</h3>
-                    <input type="file" id="media-file" accept="image/,video/">
-                    <input type="text" id="media-title" placeholder="Título">
-                    <input type="text" id="media-desc" placeholder="Descripción">
-                    <input type="url" id="media-link" placeholder="Enlace (opcional)">
-                    <button onclick="uploadMedia()">Subir</button>
-                </div>
-                <div id="leaderboard">
-                    <h3>Leaderboard de Votos</h3>
-                    <ul id="leaderboard-list"></ul>
-                </div>
-            </div>
-        </section>
-    </main>
+    </section>
     <footer>
-        <p>&copy; 2025 La Tribu Lunar</p>
-        <p>Aviso: No somos asesores financieros. Invertir conlleva riesgos. Política de privacidad: [enlace].</p>
+        <p>&copy; 2030 Zyqorian AI. Todos los derechos reservados.</p>
     </footer>
-    <div id="myModal" class="modal">
-        <span class="close">&times;</span>
-        <img class="modal-content" id="imgModal">
-        <div id="caption"></div>
-    </div>
-    <script>
-        const firebaseConfig = {
-           apiKey: "AIzaSyCRTd8E3LbfBzVMJnrKo2ODic7LH7Ib3QA",
-  authDomain: "lunatisynergy-3ae5e.firebaseapp.com",
-  projectId: "lunatisynergy-3ae5e",
-  storageBucket: "lunatisynergy-3ae5e.firebasestorage.app",
-  messagingSenderId: "432528047009",
-  appId: "1:432528047009:web:0b94c71013e84b8545a9e0"
-}; 
-        };
-        firebase.initializeApp(firebaseConfig);
-        const storage = firebase.storage();
-        const db = firebase.firestore();
-
-        const modal = document.getElementById("myModal");
-        const modalImg = document.getElementById("imgModal");
-        const captionText = document.getElementById("caption");
-        const closeBtn = document.querySelector(".close");
-
-        document.querySelectorAll(".meme-item img").forEach(img => {
-            img.onclick = function() {
-                modal.style.display = "block";
-                modalImg.src = this.src;
-                captionText.innerHTML = this.dataset.caption;
-            }
-        });
-
-        closeBtn.onclick = function() {
-            modal.style.display = "none";
-        }
-
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        };
-
-        const connectWalletBtn = document.getElementById("connect-wallet");
-        const walletAddress = document.getElementById("wallet-address");
-
-        connectWalletBtn.onclick = async () => {
-            if (window.solana) {
-                try {
-                    const resp = await window.solana.connect();
-                    walletAddress.innerText = 'Wallet conectada: ' + resp.publicKey.toString();
-                    connectWalletBtn.textContent = 'Desconectar Wallet';
-                    connectWalletBtn.onclick = () => window.solana.disconnect().then(() => {
-                        walletAddress.innerText = '';
-                        connectWalletBtn.textContent = 'Conectar Wallet';
-                    });
-                } catch (err) {
-                    alert("Error al conectar wallet: " + err.message);
-                }
-            } else {
-                alert("Instala una wallet Solana como Phantom, Coinbase o Bitget Wallet.");
-            }
-        };
-
-        function uploadMedia() {
-            const file = document.getElementById("media-file").files[0];
-            const title = document.getElementById("media-title").value;
-            const desc = document.getElementById("media-desc").value;
-            const link = document.getElementById("media-link").value;
-            if (file) {
-                const storageRef = storage.ref('media/' + file.name);
-                storageRef.put(file).then(() => {
-                    storageRef.getDownloadURL().then(url => {
-                        db.collection('media').add({
-                            title: title,
-                            desc: desc,
-                            link: link,
-                            url: url,
-                            type: file.type.startsWith('video') ? 'video' : 'image',
-                            votes: 0
-                        }).then(() => {
-                            alert("Media subido y guardado!");
-                            loadMedia();
-                        });
-                    });
-                }).catch(err => alert("Error al subir: " + err.message));
-            } else {
-                alert("Selecciona un archivo");
-            }
-        }
-
-        function loadMedia() {
-            const gallery = document.querySelector(".meme-gallery");
-            gallery.innerHTML = '';
-            db.collection('media').orderBy('votes', 'desc').get().then(snapshot => {
-                snapshot.forEach(doc => {
-                    const data = doc.data();
-                    const newItem = document.createElement("div");
-                    newItem.className = "meme-item";
-                    const mediaType = data.type === 'video' ? <video controls><source src="${data.url}" type="video/mp4"></video> : <img src="${data.url}" alt="${data.title}" data-caption="${data.desc}">;
-                    newItem.innerHTML = ${mediaType}<p>${data.title}</p><a href="${data.link}" target="_blank">${data.link ? 'Enlace' : ''}</a><button class="vote-btn" onclick="vote('${doc.id}')">Votar <i class="fas fa-thumbs-up"></i></button><span class="vote-count" id="vote${doc.id}">${data.votes} votos</span>;
-                    gallery.appendChild(newItem);
-                });
-            });
-            const leaderboardList = document.getElementById("leaderboard-list");
-            leaderboardList.innerHTML = '';
-            db.collection('media').orderBy('votes', 'desc').limit(10).get().then(snapshot => {
-                snapshot.forEach((doc, index) => {
-                    const data = doc.data();
-                    const listItem = document.createElement("li");
-                    listItem.innerText = ${index + 1}. ${data.title} (${data.votes} votos);
-                    leaderboardList.appendChild(listItem);
-                });
-            });
-        }
-
-        function vote(id) {
-            db.collection('media').doc(id).update({
-                votes: firebase.firestore.FieldValue.increment(1)
-            }).then(() => {
-                loadMedia();
-            });
-        }
-
-        loadMedia();
-
-        function toggleMode() {
-            document.body.classList.toggle('light-mode');
-            localStorage.setItem('mode', document.body.classList.contains('light-mode') ? 'light' : 'dark');
-            document.getElementById("mode-toggle").innerHTML = document.body.classList.contains('light-mode') ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
-        }
-
-        if (localStorage.getItem('mode') === 'light') {
-            document.body.classList.add('light-mode');
-            document.getElementById("mode-toggle").innerHTML = '<i class="fas fa-sun"></i>';
-        }
-    </script>
 </body>
 </html>
